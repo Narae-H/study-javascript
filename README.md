@@ -110,8 +110,7 @@ if (조건식){
 <br/>
 
 # 자료형 (Data Types)
-## Overview
-### 1. 원시형 (Primitive types)    
+## 1. 원시형 (Primitive types)    
   | **Type**                    | **`typeof` Return Value** | **Object Wrapper** |
   |-----------------------------|---------------------------|---------------------|
   | [**Null**](#null)           | `object`                  | N/A                 |
@@ -124,30 +123,18 @@ if (조건식){
 
 > [!Note] null을 제외한 모든 기본 타입은 `typeof` 연산자로 테스트 가능. `typeof null`은 "object"를 반환하므로 `=== null`을 사용하여 테스트   
 
-### 2. 객체 타입 (Object types)  
-  | **Type**                    | **`typeof` Return Value** |
-  |-----------------------------|---------------------------|
-  | [**Objects**](#objects)     | `objects`                 |
-  | [**arrays**](#arrays)       | `arrays`                  |
-  | [**dates**](#dates)         | `dates`                   |
-  | [**maps**](#maps)           | `maps`                    |
-  | [**sets**](#sets)           | `sets`                    |
-  | [**intarrays**](#intarrays) | `intarrays`               |
-  | [**promises**](#promises)   | `promises`                |
-
-## Null
+### 1) Null
 - Null 타입은 null이라는 오직 하나의 값만 가질 수 있음
 ```Javascript 
 let nulltype = null;
 ```
 
-## Undefined
+### 2) Undefined
 - Undefined 타입은 `undefined`이라는 오직 하나의 값만 가질 수 있음
 - `Undefined`는 값이 없음을 의미하고 `null`은 객체가 없음을 의미   
   ex) 존재하지 않는 객체 속성에 접근, 초기화가 없는 변수 선언
 
-## Boolean
-### 사용법
+### 3) Boolean
 - `true / false` 두 가지 값을 가짐
 - 일반적으로 `삼항연산자`, `if/else`, `while` 등을 포함한 조건부 연산에서 사용
 ```Javascript 
@@ -155,8 +142,8 @@ let x = true;
 let y = false;
 ```
 
-## Number
-### 사용법
+### 4) Number
+**사용법**
 - ±(-2<sup>-1074</sup> 와 -2<sup>1024</sup>) 범위의 숫자 저장
 - 'NaN': **N**ot **a** **N**umber, 계산 결과값이 숫자가 아닌 경우.
 ```Javascript 
@@ -178,19 +165,19 @@ console.log( x == y );  // false => Object 타입의 경우, 보이는 값이 �
 console.log( x === y ); // false
 ```
 
-### Methods
+**Methods**
 | **Method**                                   | **설명**    |
 |----------------------------------------------|------------|
 | [number].toString()                          | 문자로 변환  |
 | [number].parseInt()                          | 정수로 변환  |
 
 
-## BigInt
+### 5) BigInt
 - BigInt는 Number의 범위를 넘어서는 큰 정수도 안전하게 저장하고 연산할 수 있음.
 - 범위가 굉장히 크므로 일반적으로는 Number 사용
 
-## string
-### 사용법
+### 6) String
+**사용법**
 ```Javascript 
 let color    = "Yellow";                     // Double quotes
 let lastName = 'Johnson';                    // Single quotes
@@ -198,7 +185,7 @@ let answer1  = "It's alright";               // Use quotes inside a string
 let text     = `He's often called "Johnny"`; // Template Strings
 ```
 
-### Escape Characters
+**Escape Characters**
 | **Code** | **Result**       |
 |----------|------------------|
 | `\'`     | `'`              |
@@ -218,7 +205,7 @@ let text     = `He's often called "Johnny"`; // Template Strings
   let text3 = "The character \\ is called backslash.";            // The character \ is called backslash.
   ```
 
-### Methods
+**Methods**
 | **Method**                                   | **Description**                                                                        |
 |----------------------------------------------|----------------------------------------------------------------------------------------|
 | [text].length                                | 문자열 길이                                                                              |
@@ -243,7 +230,7 @@ let text     = `He's often called "Johnny"`; // Template Strings
 - [String methods](https://www.w3schools.com/js/js_string_methods.asp)   
 - [String Search](https://www.w3schools.com/js/js_string_search.asp)
 
-### Templates
+**Templates**
 `백틱(``)`을 사용하여 문자열 정의하는 방법
 
 ```Javascript
@@ -281,10 +268,23 @@ html += `</ul>`;
 */
 ```
 
-## Symbol
+### 7) Symbol type
 - 유하고 변경 불가능한 원시(Primitive) 값
 
-## object
+
+## 2. 객체 타입 (Object types)  
+  | **Type**                    | **`typeof` Return Value** |
+  |-----------------------------|---------------------------|
+  | [**Objects**](#objects)     | `objects`                 |
+  | [**arrays**](#arrays)       | `arrays`                  |
+  | [**dates**](#dates)         | `dates`                   |
+  | [**maps**](#maps)           | `maps`                    |
+  | [**sets**](#sets)           | `sets`                    |
+  | [**intarrays**](#intarrays) | `intarrays`               |
+  | [**promises**](#promises)   | `promises`                |
+
+
+### 1) object
 - 많은 변수/함수를 한번에 담을 수 있는 객체 타입으로 `key: value`의 쌍으로 이루어져 있음.   
 
 ```Javascript
