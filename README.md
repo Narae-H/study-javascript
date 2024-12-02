@@ -111,15 +111,15 @@ if (조건식){
 
 # 자료형 (Data Types)
 ## 1. 원시형 (Primitive types)    
-  | **Type**                    | **`typeof` Return Value** | **Object Wrapper** |
-  |-----------------------------|---------------------------|---------------------|
-  | [**Null**](#null)           | `object`                  | N/A                 |
-  | [**Undefined**](#undefined) | `undefined`               | N/A                 |
-  | [**Boolean**](#boolean)     | `boolean`                 | `Boolean`           |
-  | [**Number**](#number)       | `number`                  | `Number`            |
-  | [**BigInt**](#bigint)       | `bigint`                  | `BigInt`            |
-  | [**String**](#string)       | `string`                  | `String`            |
-  | [**Symbol**](#symbol)       | `symbol`                  | `Symbol`            |
+  | **Type**                     | **`typeof` Return Value** | **Object Wrapper**  |
+  |------------------------------|---------------------------|---------------------|
+  | [**Null**](#1-null)          | `object`                  | N/A                 |
+  | [**Undefined**](#2-undefined)| `undefined`               | N/A                 |
+  | [**Boolean**](#3-boolean)    | `boolean`                 | `Boolean`           |
+  | [**Number**](#4-number)      | `number`                  | `Number`            |
+  | [**BigInt**](#5-bigint)      | `bigint`                  | `BigInt`            |
+  | [**String**](#6-string)      | `string`                  | `String`            |
+  | [**Symbol**](#7-symbol-type) | `symbol`                  | `Symbol`            |
 
 > [!Note] null을 제외한 모든 기본 타입은 `typeof` 연산자로 테스트 가능. `typeof null`은 "object"를 반환하므로 `=== null`을 사용하여 테스트   
 
@@ -273,15 +273,15 @@ html += `</ul>`;
 
 
 ## 2. 객체 타입 (Object types)  
-  | **Type**                    | **`typeof` Return Value** |
-  |-----------------------------|---------------------------|
-  | [**Objects**](#objects)     | `objects`                 |
-  | [**arrays**](#arrays)       | `arrays`                  |
-  | [**dates**](#dates)         | `dates`                   |
-  | [**maps**](#maps)           | `maps`                    |
-  | [**sets**](#sets)           | `sets`                    |
-  | [**intarrays**](#intarrays) | `intarrays`               |
-  | [**promises**](#promises)   | `promises`                |
+  | **Type**                      | **`typeof` Return Value** |
+  |-------------------------------|---------------------------|
+  | [**Objects**](#1-object)      | `objects`                 |
+  | [**arrays**](#2-arrays)       | `arrays`                  |
+  | [**dates**](#3-dates)         | `dates`                   |
+  | [**maps**](#4-maps)           | `maps`                    |
+  | [**sets**](#5-sets)           | `sets`                    |
+  | [**intarrays**](#6-intarrays) | `intarrays`               |
+  | [**promises**](#7-promises)   | `promises`                |
 
 
 ### 1) object
@@ -339,17 +339,17 @@ delete person1.age;
 delete person1["eyeColor"];
 ```
 
-## arrays
+### 2) arrays
 
-## dates
+### 3) dates
 
-## maps
+### 4) maps
 
-## sets
+### 5) sets
 
-## intarrays
+### 6) intarrays
 
-## promises
+### 7) promises
 
 <br/>
 <br/>
@@ -373,6 +373,9 @@ delete person1["eyeColor"];
 - 문자열에서 특정 문자 조합을 찾기 위한 패턴.
 
 ## 사용방법
+### Overview
+
+
 ### Modifiers
 - 정규식의 옵션이므로 선택적으로 사용 가능. 하나이상의 modifiers 동시에 사용 가능.   
 ```Javascript
