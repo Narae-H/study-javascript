@@ -108,10 +108,10 @@ document.getElementById('어쩌구').removeEventListener('click', function(){
 | **Drag and Drop** | Events related to the Drag and Drop API. Drag events fired on `Document`. | drag, dragover, dragstart, drop.|
 | **Focus**         | Events related to elements gaining or losing focus. Events fired on `Element`, `Window`. | blur, focus, focusout |
 | **Form**          | Events related to forms being constructed, reset, or submitted. Events fired on `HTMLFormElement`.| submit  |
-| **Inputs**         | Events related to HTML input elements (`<input>`, `<select>`, `<textarea>`). Events fired on `HTMLElement`, `HTMLInputElement`.    | cancel, change, select, input|
-| **Keyboard**       | Events related to keyboard interactions. Notifies when keys are pressed, released, or moved. Events fired on `Document`, `Element`.| keydown, keypress, keyup|
-| **Mouse**          | Events related to mouse interactions. (e.g., clicks, double clicks, movement, etc.). Mouse events fired on `Element`.              | click, dbclick, mousedown, mouseenter, mouseleave, mousemove, mouseout, mouseover, mouseup, scroll |
-| **Timing**         | Events related to time. Events fired on `Window`. | setTimeout, clearTimeout, setInterval, clearInterval|
+| **Inputs**        | Events related to HTML input elements (`<input>`, `<select>`, `<textarea>`). Events fired on `HTMLElement`, `HTMLInputElement`.    | cancel, change, select, input|
+| **Keyboard**      | Events related to keyboard interactions. Notifies when keys are pressed, released, or moved. Events fired on `Document`, `Element`.| keydown, keypress, keyup|
+| **Mouse**         | Events related to mouse interactions. (e.g., clicks, double clicks, movement, etc.). Mouse events fired on `Element`.              | click, dbclick, mousedown, mouseenter, mouseleave, mousemove, mouseout, mouseover, mouseup, scroll |
+| **Timing**        | Events related to time. Events fired on `Window`.                          | setTimeout, clearTimeout, setInterval, clearInterval|
 
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Events)
 - [W3Schools](https://www.w3schools.com/jsref/dom_obj_event.asp)
@@ -119,9 +119,17 @@ document.getElementById('어쩌구').removeEventListener('click', function(){
 <br/>
 
 ## Event Bubbling
-!!!여기- 이벤트 버블링과 이벤트관련 함수들
-## Propagation
+- 어떤 HTML 태그에 이벤트가 발생하면 그의 모든 상위 요소까지 이벤트가 실행되는 현상
 
+### Event Bubbling 막는 법
+```javascript
+  document.querySelector('.black-bg').addEventListener('click', function(e){
+    e.target;            // 실제 클릭한 요소
+    e.currentTarget;     // 이벤트 리스너가 달린 곳 (this와 동일)
+    e.preventDefault();  // 이벤트의 기본 동작을 막음.
+    e.stopPropagation();; // 상위요소로의 이벤트 버블링을 막음.
+  })
+```
 
 # 조건문
 ## if/else
@@ -367,6 +375,10 @@ delete person1["eyeColor"];
 ```
 
 ### 2) arrays
+- 여러가지 자료를 한곳에 저장하고 싶을 때
+
+```javascript
+```
 
 ### 3) dates
 
@@ -542,3 +554,20 @@ console.log( returnObj.input ); // The best things in life are free!
 
 ## 정규식 검사 사이트
 - [https://regexr.com/](https://regexr.com/)
+
+# Dataset 문법
+- HTML 태그 안에 데이터 넣어 놓는 방법
+```javascript
+<div id="div-name" data-name="Hong"></div> 
+<div id="div-id"   data-id="id1"></div> 
+
+console.log(document.querySelector("#div-name").dataset.data.name);  // 출력: Hong
+console.log(document.querySelector("#div-id").dataset.data.id);    // 출력: id1
+```
+
+# 유용한 자바스크립트 라이브러리들
+- [Chart.js](https://www.chartjs.org/docs/latest/): 웹페이지에서 차트 만들고 싶을 때
+- [Animate On Scroll](https://michalsnik.github.io/aos/): 스크롤 내리면 요소가 서서히 등장하는 애니메이션 만들고 싶을 때
+- [EmailJS](https://www.emailjs.com/docs/introduction/how-does-emailjs-work/): 자바스크립트만으로 이메일 전송
+- [React](https://react.dev/): Single Page Application 만들 떄 사용 
+- [Vue](https://vuejs.org/): Single Page Application 만들 떄 사용 
