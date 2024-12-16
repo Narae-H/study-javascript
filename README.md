@@ -142,8 +142,104 @@ if (조건식){
   실행할 코드
 }
 ```
-<br/>
-<br/>
+
+## Switch
+
+# 반복문 (Loop)
+| **반복문**              | **설명**                                                                 |
+|------------------------|-------------------------------------------------------------------------|
+| [for](#1-for)          | 코드를 정해진 횟수만큼 반복 실행                                             |
+| [for/in](#2-forin)     | 객체의 속성(property)을 반복 실행                                           |
+| [for/of](#3-forof)     | 반복 가능한(iterable) 객체의 값을 반복 실행                                  |
+| [while](#4-while)      | 주어진 조건이 참(`true`)인 동안 코드를 반복 실행                              |
+| [do/while](#5-dowhile) | 주어진 조건이 참(`true`)인 동안 코드를 반복 실행. 조건을 확인하기 전에 한 번은 실행|
+
+
+## 1) for 
+```javascript
+/**
+ * for (초기화; 조건; 증감) {
+ * // 실행할 코드
+ * }
+*/
+
+const cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+let   text = "";
+
+for (let i = 0; i < cars.length; i++) {
+  text += cars[i] + " ";
+}
+
+console.log(text); // BMW Volvo Saab Ford Fiat Audi
+```
+
+## 2) for/in 
+- `key: value`로 이루어진 object 타입에서 사용하고, `출력 순서가 보장되지 않음`.
+- Array에서 사용 시 눈에 보이는 배열의 element 뿐 아니라, 눈에 보이지 않는 프로토타입 속성의 인덱스까지 모두 돌며 반복되고, index 보장도 안됨.
+
+```javascript
+/**
+ * for (key in object) {
+ * // code block to be executed
+ * }
+*/
+
+// key:value 타입
+const person1 = {fname:"John", lname:"Doe", age:25};
+
+let text1 = "";
+for (let key in person1) {
+  text1 += person1[key];
+}
+console.log(text1); // John Doe 25
+```
+
+## 3) for/of
+- [iterable object(Arrays, Strings, Maps, NodeLists)](https://www.w3schools.com/js/js_iterables.asp)에서 사용하고 `순서가 보장`. `주로 배열`에서 사용. 
+- `key: value`로 이루어진 object 타입에서 사용할 경우 에러 발생(`Uncaught TypeError: obj is not iterable`)
+```javascript
+/**
+ * for (variable of iterable) {
+ *   // code block to be executed
+ * }
+*/
+
+// 1) Array인 경우
+const cars = ["BMW", "Volvo", "Mini"];
+
+let text1 = "";
+for (let value of cars) {
+  text1 += value;
+}
+console.log(text1); // BMW Volvo Mini
+
+// 2) String인 경우
+let language = "JavaScript";
+
+let text2 = "";
+for (let x of language) {
+  text2 += x + " ";
+}
+console.log(text2); // J a v a S c r i p t
+```
+
+## 4) while 
+- 조어진 조건이 참인 경우, 반복 실행
+```javascript
+while (condition) {
+  // code block to be executed
+}
+```
+
+## 5) do/while 
+- 조어진 조건이 참인 경우 반복 실행되나, 거짓이여도 최초의 1번은 실행됨
+```javascript
+do {
+  // code block to be executed
+}
+while (condition);
+```
+
 
 # 자료형 (Data Types)
 ## 1. 원시형 (Primitive types)    
@@ -321,6 +417,7 @@ html += `</ul>`;
 
 ### 1) object
 - 많은 변수/함수를 한번에 담을 수 있는 객체 타입으로 `key: value`의 쌍으로 이루어져 있음.   
+- Object객체는 순서 개념 없음
 
 ```Javascript
 // 1. 변수 선언
@@ -375,10 +472,246 @@ delete person1["eyeColor"];
 ```
 
 ### 2) arrays
-- 여러가지 자료를 한곳에 저장하고 싶을 때
+- 여러가지 자료를 한곳에 저장하고 싶을 때 사용하는 타입으로 순서가 있음.
+```javascript
+// 1. 배열 생성
+var cars = ["소나타", 50000, "white"];
+
+// 2. 데이터 수정
+cars[0]= "BMW";
+
+// 3. 데이터 출력
+console.log(cars[0]);  // BMW
+console.log(cars[1]);  // 50000
+console.log(cars[2]);  // white
+```
+
+**- Basic Methods**
+| **Method**     | **Description**                                                                                    |
+|----------------|----------------------------------------------------------------------------------------------------|
+| length         | 배열길이                                                                                            |
+| toString()     | 배열 자료형을 String 자료형으로 변환                                                                   |
+| at()           | 특정 위치의 데이터 갖고오기                                                                            |
+| join()         | 모든 배열의 요소를 String 로 변환하는 것(toString()과 유사)하나, join()의 경우 요소 사이에 구분자 추가 가능.  | 
+| pop()          | 배열의 마지막 요소 꺼내기                                                                             |
+| push()         | 배열의 마지막 요소 다음에 새로운 요소 추가하기                                                           |
+| shift()        | 배열의 첫번째 요소를 삭제하고 한칸씩 앞으로 땡김                                                         |
+| unshift()      | 배열의 첫번째 요소에 새로운 요소를 추가하고 한 칸씩 뒤로 보냄                                              |
+| concat()       | 배열 2개를 합쳐서 새로운 배열 생성. 기존 배열은 변하지 않음                                               |
+| splice()       | 배열의 특정 위치에 새로운 요소들을 추가/삭제할 때 사용.                                                   |
+| slice()        | 배열의 특정 부분을 잘라서 새로운 배열로 리턴                                                             |
 
 ```javascript
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+// 1) length
+console.log( fruits.length ); //4
+
+// 2) toString()
+console.log( fruits.toString() ); // Banana,Orange,Apple,Mango
+
+// 3) at()
+console.log( fruits.at(2) ); // Apple
+
+// 4) join()
+console.log( fruits.join(" * ") ); // Banana * Orange * Apple * Mango
+
+// 5) pop()
+console.log( fruits.pop() ); // Mango
+console.log( fruits );       // Banana,Orange,Apple
+
+// 6) push()
+console.log( fruits.push("Kiwi") ); // 4
+console.log( fruits );              // Banana,Orange,Apple,Kiwi
+
+// 7) shift()
+fruits.shift();
+console.log( fruits ); // Orange,Apple,Kiwi
+
+// 8) unshift()  
+fruits.unshift("Lemon");
+console.log( fruits ); // Lemon, Orange,Apple,Kiwi
+
+// 9) concat()
+const myGirls = ["Cecilie", "Lone"];
+const myBoys = ["Emil", "Tobias", "Linus"];
+
+const myChildren = myGirls.concat(myBoys);
+console.log(myChildren); // Cecilie,Lone,Emil,Tobias,Linus
+
+// 10) splice()
+const color = ["Yellow", "Orange", "Red", "Green"];
+//추가
+color.splice(2, 0, "Black", "Blue"); // splice([어디를 잘라서 새로운 요소 넣을지], [몇개의 요소를 삭제하고 넣을지], [들어갈 요소])
+console.log(color);                  // Yellow,Orange,Black,Blue,Red,Green
+// 삭제
+color.splice(0, 1);                  // splice([어디를 잘라서 새로운 요소 넣을지], [몇개의 요소를 삭제하고 넣을지], [들어갈 요소])
+console.log(color);                  // Orange,Black,Blue,Red,Green
+
+// 11) slice()
+const fruits1 = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus1 = fruits1.slice(3);   // slice([어디서부터 자를지])
+console.log(citrus1)                // Apple,Mango
+
+const fruits2 = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus2 = fruits.slice(1, 3); // slice([어디서부터 자를지], [어디까지 자를지(해당 위치는 포함안됨)])
+console.log(citrus2)                // Orange,Lemon
 ```
+
+**- Find and Search Methods**   
+
+**- Sort Methods**
+  **1) sort()**
+  - 배열을 알파벳 오름차순(default), 또는 원하는 방법(사용자 정의 함수)으로 정렬.
+  ```javascript
+  // 1) 알파벳 순으로 정렬
+  const fruits = ["Banana", "Orange", "Apple", "Mango"];
+  fruits.sort();
+  console.log(fruits); // Apple,Banana,Mango,Orange
+
+  // 2) 문자정렬 (알파벳 오름 차순이 아닐 경우 이용가능)
+  let arr=["Kim", "Hyeon", "Ahn"];
+  arr.sort( (a, b)=>{
+    const nameA = a.toUpperCase();  
+    const nameB = b.toUpperCase();
+
+    if( nameA > nameB )  return 1;
+    if( nameA < nameB )  return -1;
+
+    return 0; // 반드시 리턴있어야 하므로
+    
+  });
+
+  // 3) 숫자 정렬
+  // 기본적으로 sort() 함수는 알파벳순 정렬이므로, 25와 100을 비교했을 때, 100이 더 앞에 위치. 1이 2보다 작으므로.
+  // 따라서, 숫자 정렬을 위해서는 비교하는 함수를 구현
+  // 'a - b : 음수'라면, a 다음 b
+  // 'a - b : 0'이라면, 변화 없음
+  // 'a - b : 양수'라면, b 다음 a
+  const points = [40, 100, 1, 5, 25, 10];
+  points.sort(function(a, b){return a - b}); // 1,5,10,25,40,100
+
+  // 4) ascii 문자가 아닌 경우 비교
+  let arr2 = ["réservé", "premier", "communiqué", "café", "adieu", "éclair"];
+  arr2.sort( (a, b) => a.localeCompare(b) );
+  console.log( err2 ); // ['adieu', 'café', 'communiqué', 'éclair', 'premier', 'réservé']
+  ```
+
+  **4) toSorted()**
+  - 원본 배열을 손상하지 않고, 알파벳 오름차순(default), 또는 원하는 방법(사용자 정의 함수)으로 정렬
+  ```javascript
+  // 1) 알파벳 순으로 정렬
+  const fruits = ["Jan", "Feb", "Mar", "Apr"];
+  const sorted = months.toSorted();
+  
+  console.log(sorted); // Apr,Feb,Jan,Mar
+  ```
+
+  **3) reverse()**
+  - 배열을 역순으로 정렬
+  ```javascript
+  const fruits = ["Banana", "Orange", "Apple", "Mango"];
+  fruits.reverse();
+  
+  console.log(fruits); // Mango,Apple,Orange,Banana
+  ```
+
+**- Iteration Methods**   
+  **1) foreach()**
+  - 반복문처럼 사용. 배열의 자료 개수만큼 안의 코드 실행. 원본 데이터 변형.
+  ```javascript
+  /**
+   * obj.forEach( ([element], [index], [array])=>{ [callback function] }) 
+   */
+  const numbers = [45, 4, 9, 16, 25];
+  let txt = "";
+  numbers.forEach( function myFunction(value, index, array) {
+    console.log(value); // 45 4 9 16 25
+  });
+  ```
+
+  **2) map()**
+  - 반복문처럼 사용. 배열의 자료 개수만큼 안의 코드 실행. 원본 데이터 유지.
+  ```javascript
+  /**
+   * obj.map( ([element], [index], [array])=>{ [callback function] }) 
+   */
+  var numbers = [7,3,5,2,40];
+  var newNumbers = numbers.map(function(a){
+    return a * 4;
+  });
+  ```
+
+  > [!NOTE]
+  > <details>
+  > <summary> forEach() vs map() </summary>
+  >   
+  > |      특징      |   forEach()                                     |  map()                                                            |
+  > | ---------------| ------------------------------------------------| -------------------------------------------------------------------- |
+  > |    문법        | obj.forEach( ([element], [index], [array])=>{}) | obj.map( ([element], [index], [array])=>{})                 |
+  > |    특징        | 반복문 (array/object 각 요소에 대해 작업을 수행)    | 반복문 (array/object 각 요소를 반환하여 새로운 객체를 생성)           |
+  > |    공통점      | 원본 객체를 변경하지 않음                          | 원본 객체를 변경하지 않음                                           |
+  > |    차이점      |  리턴값 없음(undefined)                          | 리턴값 있음                                                        | 
+  >
+  > ```JavaScript
+  > let arr = [1, 2, 3];
+  > // 1. 리턴값 비교
+  > // 1-1) forEach()
+  > let f = arr.forEach( (val) => val+1 )
+  > console.log(f); // undefined
+  >
+  > // 1-2) map()
+  > let m = arr.map( (val)=> val+1 )
+  > console.log(m) //[2, 3, 4]
+  >
+  > 
+  > // 2. 특정 객체의 값을 변경하고 싶을 때
+  > // 2-1) forEach()
+  > let newArr1 = [];
+  > arr.forEach( (val)=>{ newArr1.push(val*2) })
+  > console.log(newArr1) // [2, 4, 6]
+  >
+  > // 2-2) map()
+  > let newArr2 = arr.map( (val)=> val*2 )
+  > console.log(newArr2); // [2, 4, 6]
+  > ```
+  > </details>
+
+  **3) filter()**
+  - 필터 조건에 만족하는 요소로 새로운 배열을 리턴.
+  ```javascript
+  const numbers = [45, 4, 9, 16, 25];
+  const over18 = numbers.filter( function myFunction(value, index, array) {
+    return value > 18;
+  });
+
+  console.log(over18); // 45, 25
+  ```
+
+  **4) some()**
+  - 각 요소들 중 하나라도 true 값을 리턴한다면, true
+  ```javascript
+  // Array.prototype.some( ([element], [index], [array]) => { return [조건] } )
+
+  const array = [1, 2, 3, 4, 5];
+
+  // Checks whether an element is even
+  const even = (element) => element % 2 === 0;
+
+  console.log(array.some(even)); // Expected output: true
+  ```
+
+  **5) every()**
+  - 각 요소들 모두가 다 true 이여야만, true
+  ```javascript
+  const array = [1, 2, 3, 4, 5];
+
+  // Checks whether an element is even
+  const even = (element) => element % 2 === 0;
+
+  console.log(array.some(even)); // Expected output: false
+  ```  
+
 
 ### 3) dates
 
@@ -561,9 +894,41 @@ console.log( returnObj.input ); // The best things in life are free!
 <div id="div-name" data-name="Hong"></div> 
 <div id="div-id"   data-id="id1"></div> 
 
-console.log(document.querySelector("#div-name").dataset.data.name);  // 출력: Hong
-console.log(document.querySelector("#div-id").dataset.data.id);    // 출력: id1
+console.log(document.querySelector("#div-name").dataset.data.name); // 출력: Hong
+console.log(document.querySelector("#div-id").dataset.data.id);     // 출력: id1
 ```
+
+# HTML elements 생성
+- HTML elements 생성: `document.createElement('p')`
+- 생성된 HTML element를 특정 위치에 붙임: `document.querySelector('#test').appendChild(a)` 
+- HTML elements 생성 + 특정 위치에 붙임: ` document.querySelector('#test').insertAdjacentHTML('beforeend', a);`
+```javascript
+// 1. Javascript 문법을 이용하여 특정 element를 생성하고 붙이기
+var a = document.createElement('p');            // 1) 생성
+a.innerHTML = '안녕';
+document.querySelector('#test').appendChild(a); // 2) 붙이기
+
+// 2. Javascript 문법을 이용하여 특정 elelement 생성과 붙이는걸 동시에
+var b = '<p>안녕</p>';
+document.querySelector('#test').insertAdjacentHTML('beforeend', b); // 생성 + 붙이기
+```
+
+# Ajax (Asynchronous JavaScript And XML)
+- 서버에 GET, POST 요청을 할 때 새로고침 없이 데이터를 주고받을 수 있게 도와주는 방법.
+- 비동기형식으로 웹페이지의 일부만 업데이트 할 수 있게 만들어 주는 기술.
+- 서버와 데이터를 주고 받을 때는 문자만 가능 (array, object 안됨) => `res.json()`를 이용해서 `JSON` 이라는 자료타입으로 변환
+```javascript
+// fetch 함수는 Edge 브라우저 이상에서만 동작
+fetch('https://codingapple1.github.io/price.json')
+  .then(res => res.json())
+  .then(function(data){
+    console.log(data)
+  })
+  .catch(function(error){
+    console.log('실패함')
+  });
+```
+
 
 # 유용한 자바스크립트 라이브러리들
 - [Chart.js](https://www.chartjs.org/docs/latest/): 웹페이지에서 차트 만들고 싶을 때
