@@ -144,6 +144,20 @@ if (조건식){
 ```
 
 ## Switch
+```javascript
+let 변수 = 2 + 2;
+
+switch (변수){
+  case 3 :
+    alert('변수가 3이네요');
+    break
+  case 4 :
+    alert('변수가 4네요');
+    break
+  default : 
+    alert('다 아니네')
+}
+```
 
 # 반복문 (Loop)
 | **반복문**              | **설명**                                                                 |
@@ -559,6 +573,29 @@ console.log(citrus2)                // Orange,Lemon
 ```
 
 **- Find and Search Methods**   
+  **1) indexOf()**
+  - 해당 검색어에 해당하는 첫번째 아이템을 찾고 그 위치를 리턴.
+  ```javascript
+  const fruits = ["Apple", "Orange", "Apple", "Mango"];
+  console.log( fruits.indexOf("Apple") ); // 0
+  ```
+
+  **2) find()**
+  - 조건에 만족하는 첫번째 아이템을 찾아서 리턴.
+  ```javascript
+  const numbers = [4, 9, 16, 25, 29];
+  let first = numbers.find((value, index, array) => {
+    return value > 18;
+  });
+  console.log(first); // 25
+  ```
+  
+  **3) includes()**
+  - 해당 검색어가 포함되어있는지 확인하고 true/false 리턴.
+  ```javascript
+  const fruits = ["Banana", "Orange", "Apple", "Mango"];
+  console.log(fruits.includes("Mango")); // true
+  ```
 
 **- Sort Methods**
   **1) sort()**
@@ -569,7 +606,7 @@ console.log(citrus2)                // Orange,Lemon
   fruits.sort();
   console.log(fruits); // Apple,Banana,Mango,Orange
 
-  // 2) 문자정렬 (알파벳 오름 차순이 아닐 경우 이용가능)
+  // 2) 문자정렬
   let arr=["Kim", "Hyeon", "Ahn"];
   arr.sort( (a, b)=>{
     const nameA = a.toUpperCase();  
@@ -714,6 +751,25 @@ console.log(citrus2)                // Orange,Lemon
 
 
 ### 3) dates
+- 날짜 객체
+!!! 여기 날짜 객체 출력 값 작성부터 하면 됨.
+https://www.w3schools.com/js/js_dates.asp
+
+```javascript
+// 1. 날짜 객체 생성
+const d1 = new Date();              // Wed Dec 18 2024 16:39:20 GMT+1100 (Australian Eastern Daylight Time) => 오늘날짜
+const d2 = new Date("2024-12-18");  // Wed Dec 18 2024 11:00:00 GMT+1100 (Australian Eastern Daylight Time)
+const d3 = new Date(2024, 12);      // Wed Jan 01 2025 00:00:00 GMT+1100 (Australian Eastern Daylight Time)
+const d4 = new Date(year,month,day);
+const d5 = new Date(year,month,day,hours);
+const d6 = new Date(year,month,day,hours,minutes);
+const d7 = new Date(year,month,day,hours,minutes,seconds);
+const d8 = new Date(year,month,day,hours,minutes,seconds,ms);
+const d9 = new Date(milliseconds)
+
+
+// 3) 
+```
 
 ### 4) maps
 
@@ -929,6 +985,91 @@ fetch('https://codingapple1.github.io/price.json')
   });
 ```
 
+# DOM (Document Object Model)
+- 자바스크립트가 HTML에 대한 정보들 (id, class, name, style, innerHTML 등)을 object 자료로 정리한걸 DOM이라고 부름.
+- 브라우저는 HTML 문서를 위에서부터 읽으며 DOM 생성.
+  ```html
+  <script>
+    document.getElementById('test').innerHTML = '안녕' // 에러: 아직 생성안된 HTML element에 접근하려고 하였으므로.
+  </script>
+
+  <p id="test">임시글자</p>
+  ```
+- 위 에러가 나지 않게 하려면? => 'HTML을 다 읽었는지 확인후에 실행하라'라는 코드 쓰면 됨.
+  ```javascript
+  // 1) Javascript 사용
+  document.addEventListener('DOMContentLoaded', function() { 실행할 코드 }) 
+  
+  // 2) jQuery 사용
+  $(document).ready(function(){ 실행할 코드 })
+  
+  ```
+
+- `css/jss 파일`이 로드 됐는지 체크하기 법
+  ```javascript
+  // 1) Javascript 사용
+  window.addEventListener('load', function(){
+    //document 안의 이미지, js 파일 포함 전부 로드가 되었을 경우 실행할 코드
+  })
+
+  // 2) jQuery 사용
+  $(window).on('load', function(){
+    //document 안의 이미지, js 파일 포함 전부 로드가 되었을 경우 실행할 코드 
+  });
+  ```
+
+# 브라우저 스토리지(LocalStorage/sessionStorage) 
+- 브라우저에는 여러종류의 저장공간이 있음.
+
+| **저장소 종류**                      | **설명**                                                            |
+|------------------------------------|---------------------------------------------------------------------|
+| [Local Storage](#local-storage)    | `key : value` 형태로 문자, 숫자 데이터를 저장할 수 있는 공간              |
+| [Session Storage](#session-storage)| `key : value` 형태로 문자, 숫자 데이터를 저장하며, 브라우저 세션 동안만 유지 |
+| Indexed DB                         | 크고 구조화된 데이터를 데이터베이스처럼 저장 가능하지만, 문법이 복잡          |
+| Cookies                            | 유저의 로그인 정보와 같은 데이터를 저장하는 공간                           |
+| Cache Storage                      | HTML, CSS, JavaScript, 이미지 파일 등을 저장해 두는 공간                 |
+
+
+
+
+## Local Storage
+- 브라우저 안에 있는 저장소
+
+### 위치
+Chrome 개발자 모드(F12) > Application 탭 > Local Storage
+
+### 특징
+1. key:value 형태로 저장가능   
+2. 최대 5MB까지 문자/JSON만 저장가능 (숫자를 저장해도 문자로 변환해서 저장 됨)   
+3. 유저가 캐시를 지우지 않는 한, 사이트 재접속해도 남아있음    
+> [!NOTE] Local Storage는 재접속해도 남아있지만, Session Storage는 브라우저 끄면 날라감.
+
+### 사용법
+1. 일반 문자인 경우
+```JavaScript
+localStorage.setItem('age', '20') // 자료 저장
+localStorage.getItem('age')       // 자료 꺼냄
+localStorage.removeItem('age')    // 자료 삭제
+```
+
+2. array/object 인 경우   
+local storage는 문자 또는 JSON만 저장 가능하므로, JSON 타입으로 변형필요
+```JavaScript
+let obj = {name : 'kim'}
+
+// 넣을때: JSON.stringify() 이용해서 '객체 -> 문자'로 변경
+localStorage.setItem('data', JSON.stringify(obj)); 
+
+// 꺼낼때: JSON.parse() 이용해서 '문자 -> JSON'으로 변경
+console.log( JSON.parse( localStorage.getItem('data') ) )
+```
+
+### 외부 라이브러리
+- redux-persist
+- Jotai
+- Zustand
+
+## Session Storage
 
 # 유용한 자바스크립트 라이브러리들
 - [Chart.js](https://www.chartjs.org/docs/latest/): 웹페이지에서 차트 만들고 싶을 때
@@ -936,3 +1077,38 @@ fetch('https://codingapple1.github.io/price.json')
 - [EmailJS](https://www.emailjs.com/docs/introduction/how-does-emailjs-work/): 자바스크립트만으로 이메일 전송
 - [React](https://react.dev/): Single Page Application 만들 떄 사용 
 - [Vue](https://vuejs.org/): Single Page Application 만들 떄 사용 
+
+# 모던 웹 개발 시 알아야 할 배경 지식
+## npm
+- `라이브러리 설치/수정/삭제/버전 관리`를 쉽게 하기 위해 사용
+- 작업하던 폴더에서 터미널 열어서 npm install 라이브러리명 이런거 입력하면 라이브러리 설치 끝.
+
+## nodejs
+- 구글이 만든 `자바스크립트 해석 엔진`
+- 내가 짠 자바스크립트 코드를 컴퓨터 친화적인 코드로 변환해서 돌려주는 엔진으로 V8이라고 부름.
+- V8이 너무 잘 만들어져 그걸 독립적인 실행프로그램으로 만들어서 배포하고 있는데 이름이 Node.js임.
+
+## bundling tool
+- npm으로 라이브러리 이거저거 설치해서 js 파일이 수천개씩 쌓였을 때, 쓸모없는 라이브러리 정리해주는 툴
+- 예전에는 Webpack, parcel, snowpack 사용. 현재는 Vite 사용
+
+## build
+- build 작업(나의 소스코드를 분석해서 꼭 필요한 js파일과 코드만 남겨주는 작업)을 하면 결과물로 js파일 html 파일 이런걸 뱉어줌
+- 서버에 배포하기 위해 필요함.
+
+## SPA (Single Page Application)
+- 자바스크립트로 html 변경하는 작업을 매우 쉽게 할 수 있도록 도와주는 React, Vue 라이브러리 많이 씀.
+- 이런 라이브러리들을 쓰면 `Single page application`을 만들 수 있는데, 이게 바로 새로고침 없이 페이지 전환 부드럽게 한페이지에 모든 UI를 띄어주는 방법.
+
+## state management
+- React, Vue 같은 라이브러리 설치해서 쓰면 html 덩어리들을 재사용하고 싶을 때 컴포넌트라는걸 만들어서 사용.
+- 근데 그 컴포넌트끼리 변수를 공유하는게 매우 어렵기 때문에 그걸 쉽게 도와주는 라이브러리(Redux toolkit, Zustand)를 또 설치해서 씀. 
+
+## server side rendering
+- `Client side rendering`: React, Vue로 html 덩어리들을 브라우저에서 마구 만들어내는걸
+- `Server side rendering`: html을 서버에서 미리 전부 완성해서 보내주는 식
+
+## typescript 
+- 자바스크립트는 타입이 자유료운 언어라도 버그발생 가능성이 높음. 
+- 따라서, 타입이 명시할 수 있는 typescript를 사용함. 타입스크립트로 코드짜로 build tool이 알아서 .js로 변환해줌.
+
