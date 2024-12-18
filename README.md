@@ -752,8 +752,7 @@ console.log(citrus2)                // Orange,Lemon
 
 ### 3) dates
 - 날짜 객체
-!!! 여기 날짜 객체 출력 값 작성부터 하면 됨.
-https://www.w3schools.com/js/js_dates.asp
+[JS Dates](https://www.w3schools.com/js/js_dates.asp)
 
 ```javascript
 // 1. 날짜 객체 생성
@@ -767,17 +766,20 @@ const d7 = new Date(year,month,day,hours,minutes,seconds);
 const d8 = new Date(year,month,day,hours,minutes,seconds,ms);
 const d9 = new Date(milliseconds)
 
-
-// 3) 
 ```
 
 ### 4) maps
+[Maps](https://www.w3schools.com/js/js_maps.asp)
+[Maps Methods](https://www.w3schools.com/js/js_map_methods.asp)
 
 ### 5) sets
+[Sets](https://www.w3schools.com/js/js_sets.asp)
+[Sets Methods](https://www.w3schools.com/js/js_set_methods.asp)
 
 ### 6) intarrays
 
 ### 7) promises
+[Promises](https://www.w3schools.com/js/js_promise.asp)
 
 <br/>
 <br/>
