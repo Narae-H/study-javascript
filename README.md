@@ -1032,8 +1032,6 @@ fetch('https://codingapple1.github.io/price.json')
 | Cache Storage                      | HTML, CSS, JavaScript, 이미지 파일 등을 저장해 두는 공간                 |
 
 
-
-
 ## Local Storage
 - 브라우저 안에 있는 저장소
 
@@ -1072,6 +1070,104 @@ console.log( JSON.parse( localStorage.getItem('data') ) )
 - Zustand
 
 ## Session Storage
+
+<br/>
+<br/>
+
+# 객체지향 프로그래밍
+- object 자료형으로 정보 저장할때, class 문법을 이용하면 비슷한 object를 쉽게 찍어내기 가능
+
+## 템플릿을 이용한 객체(Object) 생성
+### 1) function 사용
+- 옛날 Javascript 문법은 class 문법 없어서 function 으로 만듬.
+  ```javascript
+  function car(name, year) {
+    this.name = name; // this: 기계()로 부터 새롭게 생성되는 object(instance)
+    this.year = year;
+  }
+  const myCar1 = new car("Ford", 2014);
+  const myCar2 = new car("Audi", 2019);
+
+  ```
+### 2) class 사용 (ES6 이후 문법)
+- class의 이름은 항상 대문자로.
+- class 안에는 반드시 constructor()를 추가하여야 하며, 이는 새로운 object가 생성될때 자동으로 실행됨. 
+- class는 constructor()외에 다른 methods도 사용 가능.
+  ```javascript
+    class Car {
+      constructor(name, year) {
+        this.name = name;
+        this.year = year;
+      }
+    }
+    const myCar1 = new Car("Ford", 2014); 
+    const myCar2 = new Car("Audi", 2019);
+  ```
+
+## Prototype: 객체(Object)의 상속
+- prototype이란 겉으로는 보이지 않지만 상속되어 몰래 숨어있는 `부모의 유전자`
+
+### 객체의 특징
+**1) 이미 존재하는 객체 생성자에는 새로운 속성 추가 못함.**
+```javascript
+function Person(first, last, age, eyecolor) {
+  this.firstName = first;
+  this.lastName = last;
+  this.age = age;
+  this.eyeColor = eyecolor;
+
+  Person.nationality = "English"; // 불가능
+}
+```
+
+**2) prototype chain**: 모든 JavaScript 객체는 부모의 속성이 상속 됨.
+  ```javascript
+  var arr = new Array(1, 2, 3);
+  arr.sort(); 
+  
+  // sort()정의한 적 없는데 쓸 수 있는 이유는?
+  // => 해당 객체의 부모(Array)가 sort()를 가지고 있어서 상속되었음.
+  // => 부모의 부모, 부모의 부모의 부모, ... 전부 다 자식으로 상속 됨.  
+  ```
+  <sup>* [Inheritance and the prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)</sup>
+
+### prototype 활용
+- 이미 존재하는 객체에 constructor()를 바꾸지 않고 새로운 속성 추가하고 싶을 때
+- 같은 부모로 부터 생성된 모든 자식이 같은 속성을 갖고 싶을 때
+  > <small>[!Note] 내가 생성한 객체의 prototype만 변경하자. JavaScript 기본 객체의 prototype변경하면 혼란을 야기할 수 있음</small>
+  <br/>
+
+  <sub>**예시1)** 새로운 값 추가</sub>
+  ```javascript
+  function Person(first, last, age, eyecolor) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eyecolor;
+  }
+
+  Person.prototype.nationality = "English";
+  ```
+  <sub>**예시2)** 새로운 methods 추가</sub>
+  ```javascript
+  function Person(first, last) {
+    this.firstName = first;
+    this.lastName = last;
+  }
+
+  Person.prototype.show = function() {
+    console.log(this.firstName + " " + this.lastName)
+  };
+  ```
+
+### JavaScript 기본 객체의 prototype
+- 모든 JavaScript 객체는 부모로 부터 properties와 methods 상속 (최상위 객체는 `Object.prototype`)  
+**ex1)** `Date` 객체는 부모의 모든 [prototypes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#instance_methods) 사용 가능.   
+**ex2)** `Array` 객체는 부모의 모든 [prototypes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#instance_methods) 사용 가능.   
+**ex3)** 내가 생성한 `Person` 객체는 부모의 모든 prototypes 사용 가능.
+
+<br/>
+<br/>
 
 # 유용한 자바스크립트 라이브러리들
 - [Chart.js](https://www.chartjs.org/docs/latest/): 웹페이지에서 차트 만들고 싶을 때
