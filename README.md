@@ -1074,6 +1074,46 @@ console.log( JSON.parse( localStorage.getItem('data') ) )
 <br/>
 <br/>
 
+# Rest parameter
+- 파라미터가 몇 개 들어올지 미리 정의가 불가능한 경우 `...[파라미터명]`로 남아있는 파라미터 전부 다 배열 형태로 받을 수 있음
+- rest parameter는 파라미터 제일 뒤에 위치해야 함.
+```javascript
+function 전부더하기(...a){
+  console.log(a)
+}
+
+전부더하기(1,2,3,4,5)
+```
+<br/>
+<br/>
+
+# Spread operator
+- array 혹은 object에서 괄호 벗기고 싶을 때 사용.
+```javascript
+let arr = [3,4,5];
+let arr2 = [1,2, ...arr]
+console.log(arr2); //1,2,3,4,5
+```
+<br/>
+<br/>
+
+# Destructuring
+- 자바스크립트에서 array, object 안에 있는 데이터를 빼서 변수를 만들고 싶을 때 사용.
+- object destructuring 일땐 변수이름과 속성을 맞춰주는게 편리하고 array destructuring은 마음대로 작명 가능.
+```javascript
+// 1) object
+let { student, age } = { student : true, age : 20 }
+console.log( student ); // true
+console.log( age );     // 20
+
+// 2) array
+let [a, b] = ['안녕', 100]
+console.log(a); // 안녕
+console.log(b); // 100
+```
+<br/>
+<br/>
+
 # 객체지향 프로그래밍
 - object 자료형으로 정보 저장할때, class 문법을 이용하면 비슷한 object를 쉽게 찍어내기 가능
 
