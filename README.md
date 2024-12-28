@@ -51,7 +51,22 @@ PI = PI + 10;   // This will also give an error
 | `var`    | function-scoped      | Yes           | Yes          |  Yes              |
 | `let`    | {Block-scoped}       | No            | Yes          |  No               |
 | `const`  | {Block-scoped}       | No            | No           |  No               |   
+<br/>
 
+## Declaring Variables Shorthand (변수 단축 선언)
+같은 선언 타입을 가진 변수를 한줄로 선언. const로 단축 선언 시, 초기값 할당하지 않으면 SyntaxError 발생.
+```JavaScript
+let a,
+    b = 1,
+    c;
+//a : undefined
+//b : 2
+//c : undefined
+
+const d = 4,
+    e = 5;
+//const d,e=5; => Uncaught SyntaxError: Missing initializer in const declaration
+```
 <br/>
 <br/>
 
@@ -158,6 +173,26 @@ switch (변수){
     alert('다 아니네')
 }
 ```
+
+## Short-circuit Evaluation (단축 평가 값)
+논리 연산자는 왼쪽에서 오른쪽으로 실행되므로, `||`인 경우 왼쪽에서 true가 나오면, 더 이상 오른쪽의 값은 평가되지 않고 바로 종료.<br/>
+하지만, `&&` 인 경우 끝까지 실행.
+- true가 되는 조건: 값이 존재   
+- false가 되는 조건: null, undefined, false, etc.
+```JavaScript
+const str = "some text";
+const result1 = str || "default value";
+// result1 = "some text";
+
+const nothing = null;
+const result2 = nothing || "default value";
+// result2 = "default value";
+
+const result3 = str && "If str is truthy return this";
+//result3 = "If str is truthy return this"
+```
+<br/>
+<br/>
 
 # 반복문 (Loop)
 | **반복문**              | **설명**                                                                 |
@@ -465,6 +500,11 @@ function Person(first, last, age, eye) {
 }
 const myFather = new Person("John", "Doe", 50, "blue");
 const myMother = new Person("Sally", "Rally", 48, "green");
+
+// 1-4) 객체에 속성으로 사용하려는 키 값과 같은 이름의 변수가 있을 경우, key: value할당을 축약형으로 사용하여 선언
+const a = 1, b = 2, c = 3;
+const obj1 = { a: a,  b: b, c: c };
+const obj2 = { a, b, c }; // {a:1,b:2,c:3}
 
 
 // 2. 값 사용: objectName.property 또는 objectName[property]
@@ -1013,7 +1053,11 @@ var b = '<p>안녕</p>';
 document.querySelector('#test').insertAdjacentHTML('beforeend', b); // 생성 + 붙이기
 ```
 
-# Ajax (Asynchronous JavaScript And XML)
+# JavaScript: Sync / async 
+- JavaScript는 일반적으로 synchronous(동기) 처리 => 윗부분부터 순서대로 코드가 실행
+- 하지만, 일부 함수들(시간이 오래걸리는애들)은 asynchronous(비동기)로 처리. => 순차적으로 실행되지 않고 완료되면 실행 ex) ajax(), setTimeout()
+
+## Ajax (Asynchronous JavaScript And XML)
 - 서버에 GET, POST 요청을 할 때 새로고침 없이 데이터를 주고받을 수 있게 도와주는 방법.
 - 비동기형식으로 웹페이지의 일부만 업데이트 할 수 있게 만들어 주는 기술.
 - 서버와 데이터를 주고 받을 때는 문자만 가능 (array, object 안됨) => `res.json()`를 이용해서 `JSON` 이라는 자료타입으로 변환
@@ -1028,6 +1072,8 @@ fetch('https://codingapple1.github.io/price.json')
     console.log('실패함')
   });
 ```
+<br/>
+<br/>
 
 # DOM (Document Object Model)
 - 자바스크립트가 HTML에 대한 정보들 (id, class, name, style, innerHTML 등)을 object 자료로 정리한걸 DOM이라고 부름.
@@ -1121,7 +1167,11 @@ console.log( JSON.parse( localStorage.getItem('data') ) )
 - rest parameter는 파라미터 제일 뒤에 위치해야 함.
 ```javascript
 function 전부더하기(...a){
-  console.log(a)
+  let res = 0;
+  a.foreach( (item) => {
+    res += item;
+  })
+  console.log(`합 => ${res}`);
 }
 
 전부더하기(1,2,3,4,5)
@@ -1140,18 +1190,39 @@ console.log(arr2); //1,2,3,4,5
 <br/>
 
 # Destructuring
-- 자바스크립트에서 array, object 안에 있는 데이터를 빼서 변수를 만들고 싶을 때 사용.
-- object destructuring 일땐 변수이름과 속성을 맞춰주는게 편리하고 array destructuring은 마음대로 작명 가능.
+- 배열/객체의 속성을 해체하여, 그 값을 개별 변수에 담을 수 있게 하는 표현식 <br/>
+- 자바스크립트에서 array, object 안에 있는 데이터를 빼서 변수를 만들고 싶을 때 사용. <br/>
+- object destructuring 일땐 변수이름과 속성을 맞춰주는게 편리하고 array destructuring은 마음대로 작명 가능. <br/>
+
 ```javascript
-// 1) object
+// 1. object
 let { student, age } = { student : true, age : 20 }
 console.log( student ); // true
 console.log( age );     // 20
 
-// 2) array
+// 2. array
+// 1) 왼쪽과 오른쪽 일치
 let [a, b] = ['안녕', 100]
 console.log(a); // 안녕
 console.log(b); // 100
+
+// 2) 왼쪽과 오른쪽 개수 불일치
+let [a, b] = ["1", "2", "3"];                 // a : 1 , b : 2
+let [c, d, ...e] = ["1", "2", "3", "4", "5"]; // c : 1, d : 2, e : [3, 4, 5]
+```
+<br/>
+<br/>
+
+# Default Parameter Value(기본값 매개변수)
+argument 없이 함수가 실행될 경우 undefined 대신 사용될 값을 할당.
+```JavaScript
+function fn1(name = "John Doe", age = 30) {
+    console.log(`${name} is ${age} years old`);
+}
+fn1();
+//John Doe is 30 years old
+fn1("Peter", 15);
+//Peter is 15 years old
 ```
 <br/>
 <br/>
