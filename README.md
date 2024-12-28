@@ -484,6 +484,7 @@ let fullName  = person1.fullName();   // John Doe
 delete person1.age;
 delete person1["eyeColor"];
 ```
+<br/>
 
 ### 2) arrays
 - 여러가지 자료를 한곳에 저장하고 싶을 때 사용하는 타입으로 순서가 있음.
@@ -571,6 +572,7 @@ const fruits2 = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
 const citrus2 = fruits.slice(1, 3); // slice([어디서부터 자를지], [어디까지 자를지(해당 위치는 포함안됨)])
 console.log(citrus2)                // Orange,Lemon
 ```
+<br/>
 
 **- Find and Search Methods**   
   **1) indexOf()**
@@ -579,23 +581,52 @@ console.log(citrus2)                // Orange,Lemon
   const fruits = ["Apple", "Orange", "Apple", "Mango"];
   console.log( fruits.indexOf("Apple") ); // 0
   ```
+  <br/>
 
   **2) find()**
   - 조건에 만족하는 첫번째 아이템을 찾아서 리턴.
   ```javascript
+  // 예제1
   const numbers = [4, 9, 16, 25, 29];
-  let first = numbers.find((value, index, array) => {
+  let first = numbers.find((value, index) => {
     return value > 18;
   });
   console.log(first); // 25
+
+  // 예제2
+  const inventory = [
+  { name: "apples", quantity: 2 },
+  { name: "bananas", quantity: 0 },
+  { name: "cherries", quantity: 5 },
+  ];
+  let foundCherries = inventory.find( (item, index)=>{ return item.name === "cherries" });
+  console.log( foundCherries ); // { name: 'cherries', quantity: 5 }
   ```
-  
-  **3) includes()**
+  <br/>
+
+  **4) findIndex()**
+  -  특정 자료를 찾아서 몇번째인지 리턴
+  ```javascript
+  const inventory = [
+  { name: "apples", quantity: 2 },
+  { name: "bananas", quantity: 0 },
+  { name: "cherries", quantity: 5 },
+  ];
+
+  let foundIndex = inventory.findIndex( (ele)=>{ return ele.name === "cherries" });
+
+  console.log( foundIndex ); // 2
+  ```
+
+  <br/>
+
+  **4) includes()**
   - 해당 검색어가 포함되어있는지 확인하고 true/false 리턴.
   ```javascript
   const fruits = ["Banana", "Orange", "Apple", "Mango"];
   console.log(fruits.includes("Mango")); // true
   ```
+<br/>
 
 **- Sort Methods**
   **1) sort()**
@@ -634,7 +665,7 @@ console.log(citrus2)                // Orange,Lemon
   console.log( err2 ); // ['adieu', 'café', 'communiqué', 'éclair', 'premier', 'réservé']
   ```
 
-  **4) toSorted()**
+  **2) toSorted()**
   - 원본 배열을 손상하지 않고, 알파벳 오름차순(default), 또는 원하는 방법(사용자 정의 함수)으로 정렬
   ```javascript
   // 1) 알파벳 순으로 정렬
@@ -686,9 +717,9 @@ console.log(citrus2)                // Orange,Lemon
   > |      특징      |   forEach()                                     |  map()                                                            |
   > | ---------------| ------------------------------------------------| -------------------------------------------------------------------- |
   > |    문법        | obj.forEach( ([element], [index], [array])=>{}) | obj.map( ([element], [index], [array])=>{})                 |
-  > |    특징        | 반복문 (array/object 각 요소에 대해 작업을 수행)    | 반복문 (array/object 각 요소를 반환하여 새로운 객체를 생성)           |
-  > |    공통점      | 원본 객체를 변경하지 않음                          | 원본 객체를 변경하지 않음                                           |
-  > |    차이점      |  리턴값 없음(undefined)                          | 리턴값 있음                                                        | 
+  > |    특징        | 반복문 (array/object 각 요소에 대해 작업을 수행)   | 반복문 (array/object 각 요소를 반환하여 새로운 객체를 생성)           |
+  > |    공통점      | 원본 객체를 변경하지 않음                         | 원본 객체를 변경하지 않음                                           |
+  > |    차이점      | 리턴값 없음(undefined)                           | 리턴값 있음                                                        | 
   >
   > ```JavaScript
   > let arr = [1, 2, 3];
@@ -747,7 +778,18 @@ console.log(citrus2)                // Orange,Lemon
   const even = (element) => element % 2 === 0;
 
   console.log(array.some(even)); // Expected output: false
-  ```  
+  ```
+  <br/>
+
+  **배열 중복제거**
+  - Set이용
+  ```javascript
+  const dupArr    = [1, 2, 3, 1, 2];
+  const set       = new Set(dupArr);
+  const uniqueArr = [...set];
+
+  console.log(uniqueArr) // 결과: [1, 2 ,3]
+  ```
 
 
 ### 3) dates
