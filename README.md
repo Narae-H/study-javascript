@@ -1074,26 +1074,33 @@ document.querySelector('#test').insertAdjacentHTML('beforeend', b); // 생성 + 
 
 ## 동작 방식
 - 클라이언트는 Ajax 방식으로 요청을하고 서버로부터 HTML 페이지가 아닌, **JSON, HTML, 텍스트** 등의 데이터를 직접적으로 응답받기를 기대함.
-  - 일반(전통적인) 요청 <br/>
+  - 일반 요청(서버사이드랜더링): 서버에서 html을 만들어서 클라이언트에게 보냄. 새로고침O <br/>
   <img src="https://github.com/Narae-H/study-javascript/blob/main/images/%EC%A0%84%ED%86%B5%EC%A0%81%EC%9D%B8%20%ED%86%B5%EC%8B%A0%EB%B0%A9%EC%8B%9D.png?raw=true" width="500px" alt="전통적인 통식방법"><br/>
 
-  - Ajax 요청          
+  - Ajax 요청(클라이언트사이드 랜더링): 서버에서는 데이터만 보내주고 클라이언트에서 html만듬. 새로고침X          
   <img src="https://github.com/Narae-H/study-javascript/blob/main/images/ajax%ED%86%B5%EC%8B%A0%EB%B0%A9%EC%8B%9D.png?raw=true" width="500px" alt="Ajax 통식방법"><br/>
     
 ## 사용법
 ### 서버로 요청(Request) 방법
+- fetch( "요청 URL", {추가데이터} ).then( 응답 ).then( 클라이언트에 보낼것들 처리 )
 ```js
   fetch("요청 URL~~", {
     method : 'HTTP Method',
     headers : { 'Content-Type' : 'application/json' },
     body : JSON.stringify({ "key" : "value"})
-  }).then(res => res.json())
-  .then(function(data){
-    console.log(data);
-    console.log("성공함");
+  }).then( (res) => {
+    if( res.status == 200 ) {
+      return res => res.json(); // 응답이 JSON 데이터인경우
+      // return res => res.data(); // 응답이 일반 텍스트인경우
+    } else {
+      console.log("서버에서 에러남");
+    }
+  })    
+  .then( (res) => {
+    console.log("성공 시, 실행할 코드 여기 작성");
   })
-  .catch(function(error){
-    console.log('실패함');
+  .catch( (error) => {
+    console.log('실패 시, 실행할 코드 여기 작성');
   });
 ```
 <br/>
@@ -1148,6 +1155,10 @@ app.post('/example', (req, res) => {
     res.json({ redirect: '/new-url' }); // 클라이언트에게 리디렉션 주소 전달 -> 클라이언트에서 리디렉션 수행
 });
 ```
+
+## Ajax 라이브러리
+- axios: fetch()문법보다 좀 더 간결하게 Ajax 사용 가능.
+
 <br/>
 <br/>
 
