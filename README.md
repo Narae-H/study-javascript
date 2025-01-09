@@ -883,7 +883,7 @@ const d9 = new Date(milliseconds)
 
 # 정규식 (Regualr Expression)
 - 문자열에서 특정 문자 조합을 찾기 위한 패턴.
-![정규식 구조](https://raw.githubusercontent.com/Narae-H/study-javascript/refs/heads/main/custom_reg_exp.png)
+![정규식 구조](https://github.com/Narae-H/study-javascript/blob/main/images/custom_reg_exp.png?raw=true)
 
 ## 사용방법
 ### 1) 문자 (알파벳/숫자/특수문자)
@@ -1075,10 +1075,10 @@ document.querySelector('#test').insertAdjacentHTML('beforeend', b); // 생성 + 
 ## 동작 방식
 - 클라이언트는 Ajax 방식으로 요청을하고 서버로부터 HTML 페이지가 아닌, **JSON, HTML, 텍스트** 등의 데이터를 직접적으로 응답받기를 기대함.
   - 일반(전통적인) 요청 <br/>
-  <img src="" width="500px" alt="전통적인 통식방법"><br/>
+  <img src="https://github.com/Narae-H/study-javascript/blob/main/images/%EC%A0%84%ED%86%B5%EC%A0%81%EC%9D%B8%20%ED%86%B5%EC%8B%A0%EB%B0%A9%EC%8B%9D.png?raw=true" width="500px" alt="전통적인 통식방법"><br/>
 
   - Ajax 요청          
-  <img src="" width="500px" alt="Ajax 통식방법"><br/>
+  <img src="https://github.com/Narae-H/study-javascript/blob/main/images/ajax%ED%86%B5%EC%8B%A0%EB%B0%A9%EC%8B%9D.png?raw=true" width="500px" alt="Ajax 통식방법"><br/>
     
 ## 사용법
 ### 서버로 요청(Request) 방법
