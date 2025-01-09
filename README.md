@@ -1062,42 +1062,45 @@ document.querySelector('#test').insertAdjacentHTML('beforeend', b); // 생성 + 
   <br/>
   
 # 서버에 데이터 요청: Ajax
-**AJAX (Asynchronous JavaScript and XML)**는 웹 페이지를 새로고침하지 않고 서버와 `데이터를 비동기적으로 주고받을 수 있는 기술`(특정 언어가 아님)
+**AJAX (Asynchronous JavaScript and XML)**는 웹 페이지를 새로고침하지 않고 서버와 `데이터를 비동기적으로 주고받을 수 있는 기술` (특정 언어가 아님)
 
 ## 주요특징
-- 전체 페이지를 새로고침 하지 않고 필요한 **데이터**만 주고 받음(HTML 페이지를 받는게 아님)
-- JSON, XML, HTML, 텍스트(array, object는 안됨) 등 다양한 형식의 데이터를 서버에서 받아 처리할 수 있음
+- 전체 페이지를 `새로고침 하지 않고` 필요한 **데이터**만 주고 받음(HTML 페이지를 받는게 아님)
+- 전통적인 링크 방식과 달리 중복된 HTML, CSS, JS 파일을 매번 다운로드 하지 않아도 되므로 `속도가 빠름`.
+- `JSON, XML, HTML, 텍스트`(array, object는 안됨) 등 다양한 형식의 데이터를 서버에서 받아 처리할 수 있음
 - JavaScript, HTML, CSS와 함께 사용되며, 서버는 어떤 언어로든 구현 가능
 - 검색 엔진 최적화(SEO)에 불리할 수 있음
 - 브라우저의 보안 정책(CORS)에 영향을 받음
 
 ## 동작 방식
-- Ajax 요청은 **비동기 요청**으로, 페이지를 새로고침하지 않고 클라이언트와 서버 간 **데이터**를 주고 받음.
-- Ajax 요청은 클라이언트(브라우저)에서 HTML 페이지가 아닌, **JSON, HTML, 텍스트** 등의 데이터를 직접적으로 응답받기를 기대함.
-  - 일반요청
-                -------- **일반 Request** -------->       
-      클라이언트                                 서버   
-                <-------- **HTML 페이지** --------  
+- 클라이언트는 Ajax 방식으로 요청을하고 서버로부터 HTML 페이지가 아닌, **JSON, HTML, 텍스트** 등의 데이터를 직접적으로 응답받기를 기대함.
+  - 일반(전통적인) 요청 <br/>
+  <img src="" width="500px" alt="전통적인 통식방법"><br/>
+
   - Ajax 요청          
-                -------- **일반 Request** -------->       
-      클라이언트                                 서버   
-                <-------- **JSON, HTML, 텍스트** --------
+  <img src="" width="500px" alt="Ajax 통식방법"><br/>
     
 ## 사용법
 ### 서버로 요청(Request) 방법
 ```js
-// 서버로 데이터 요청
-fetch('요청 URL~~~~')
-  .then(res => res.json())
+  fetch("요청 URL~~", {
+    method : 'HTTP Method',
+    headers : { 'Content-Type' : 'application/json' },
+    body : JSON.stringify({ "key" : "value"})
+  }).then(res => res.json())
   .then(function(data){
-    console.log(data)
+    console.log(data);
+    console.log("성공함");
   })
   .catch(function(error){
-    console.log('실패함')
+    console.log('실패함');
   });
 ```
-**- 요청 주의사항**
-  - AJAX 요청을 서버에서 처리할 때는 `res.redirect(), res.render()를 사용하면 안됨`.
+<br/>
+
+- **요청 주의사항**
+  - AJAX 요청을 서버에서 처리할 때는 `res.redirect(), res.render()를 사용하면 안됨`. 
+  - 해당 메소드는 Ajax가 요청했을 때 클라이언트가 응답받기를 기대하는 형식(JSON 또는 텍스트)이 아님.
   
   **res.redirect()사용 시 문제**
   - res.redirect()는 서버가 클라이언트를 다른 URL로 리디렉션하도록 지시.
@@ -1106,12 +1109,11 @@ fetch('요청 URL~~~~')
   - `클라이언트는 리디렉션된 URL의 응답을 데이터로 처리하려고 시도`하지만, 이는 의도와 맞지 않을 가능성이 큼.
   
   **res.render()사용 시 문제**
-  - res.render()는 서버가 템플릿 엔진(EJS, Pug 등)을 사용해 HTML 페이지를 렌더링하고 이를 클라이언트에 전달
-  - Ajax 요청에서는 전체 HTML 페이지가 아닌, `특정 데이터(JSON 또는 텍스트)를 응답으로 기대`
-  - 클라이언트는 응답으로 전달된 HTML 데이터를 JSON이나 텍스트로 처리하려고 시도하지만, 이는 오류를 유발하거나 예상치 못한 결과를 초래
+  - res.render()는 서버가 템플릿 엔진(EJS, Pug 등)을 사용해 HTML 페이지를 렌더링하고 이를 클라이언트에 전달(JSON 또는 텍스트가 아님)
+  - 클라이언트는 응답으로 전달된 HTML 데이터를 JSON이나 텍스트로 처리하려고 시도하지만, 원치않던 응답이라 오류를 유발하거나 예상치 못한 결과를 초래
 
 ### 클라이언트에게 올바른 응답(Response) 방법
-**- 방법 1. JSON 데이터로 응답하기**
+**방법 1. JSON 데이터**
 
 ```js
   app.post('/example', (req, res) => {
@@ -1119,25 +1121,31 @@ fetch('요청 URL~~~~')
       res.json(data); // JSON 응답
 });
 ```
-**- 방법 2. 텍스트 데이터로 응답하기**   
+<br/>
+
+**방법 2. 텍스트 데이터: 일반 텍스트**   
 
 ```js
 app.get('/example', (req, res) => {
     res.send('Hello, world!'); // 텍스트 응답
 });
 ```
-**- 방법 3. HTML 일부를 반환하기 (필요한 경우)**   
+<br/>
+
+**방법 3. 텍스트 데이터: HTML 일부 (필요한 경우)**   
 
 ```js
 app.get('/example', (req, res) => {
     res.send('<div>Some HTML content</div>'); // HTML 일부
 });
 ```
-**- 방법 4. 리다렉트가 필요한 경우**   
+<br/>
+
+**방법 4. 텍스트 데이터: 리다렉트 주소 (필요한 경우)**   
 
 ```js
 app.post('/example', (req, res) => {
-    res.json({ redirect: '/new-url' }); // 클라이언트에게 리디렉션 명령 전달 -> 클라이언트에서 리디렉션 수행
+    res.json({ redirect: '/new-url' }); // 클라이언트에게 리디렉션 주소 전달 -> 클라이언트에서 리디렉션 수행
 });
 ```
 <br/>
